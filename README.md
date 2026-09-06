@@ -108,9 +108,27 @@ python validate.py                    # 16-case finite-difference suite
 python compare_response.py 5 6-31g    # z-vector vs per-atom CPHF, + scaling
 ```
 
-SLURM submit scripts for both are in `scripts/`. They pin BLAS to one thread
-inside PySCF's OpenMP threads — without that the two layers oversubscribe the
-cores, which measured **2× wall time and 32× system time** on a 24-core node.
+### On a cluster
+
+SLURM submit scripts are in `scripts/`. Put your site's environment setup in an
+untracked `scripts/env.sh`, then submit with your own partition:
+
+```bash
+cd scripts
+cp env.sh.example env.sh    # edit: conda activate / module load / venv
+sbatch --partition=<your-partition> validate.slurm
+sbatch --partition=<your-partition> compare_response.slurm
+```
+
+The scripts pin BLAS to one thread inside PySCF's OpenMP threads. Without that
+the two layers oversubscribe the cores — measured at **2× wall time and 32×
+system time** on a 24-core node, for bit-identical results.
+
+Note that PySCF here is **OpenMP only**: it uses many cores on one node and
+cannot span nodes, so requesting more than one node just leaves them idle.
+These systems are also small enough that parallel efficiency saturates early
+(~40% of 24 cores) — for bulk reference-data generation, a job array of
+few-thread tasks scales far better than one wide job.
 
 ## Layout
 

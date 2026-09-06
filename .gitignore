@@ -15,3 +15,6 @@ tmp*
 
 # os
 .DS_Store
+
+# site-specific cluster setup (see scripts/env.sh.example)
+scripts/env.sh
