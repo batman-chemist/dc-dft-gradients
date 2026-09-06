@@ -1,0 +1,17 @@
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# cluster job output
+*.out
+slurm-*.out
+
+# pyscf scratch
+*.chk
+tmp*
+
+# os
+.DS_Store

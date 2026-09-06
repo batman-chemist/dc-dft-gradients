@@ -1,0 +1,4 @@
+pyscf>=2.13
+numpy
+scipy
+dftd4
