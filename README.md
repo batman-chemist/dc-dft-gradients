@@ -137,9 +137,15 @@ src/nonscf_grad.py        implementation
 tests/validate.py         finite-difference validation (the ground truth)
 tests/compare_response.py z-vector vs per-atom cross-check and benchmark
 scripts/*.slurm           cluster submit scripts
+notes/REPORT.md           full technical record: derivation, results, bugs
 notes/theory.md           the derivation, from first principles
 notes/derivation.md       implementation notes and pitfalls
 ```
+
+Start with [`notes/REPORT.md`](notes/REPORT.md) for the complete account —
+method, derivation, every measured number, the bugs found and how, performance,
+and the route to a Fortran implementation. `notes/theory.md` is the pedagogical
+version of the derivation alone.
 
 ## Two traps worth knowing
 
