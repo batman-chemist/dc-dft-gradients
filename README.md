@@ -184,3 +184,7 @@ falls on real hardware.
 
 Python 3.9+, PySCF (2.13/2.14 tested), NumPy, SciPy, and `dftd4` for the
 dispersion term. Everything except D4 runs without `dftd4` (`with_d4=False`).
+
+## License
+
+MIT — see [LICENSE](LICENSE).
