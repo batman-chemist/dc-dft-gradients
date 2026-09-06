@@ -54,8 +54,11 @@ this code      : 9.0e-06  error   (finite-difference floor, see below)
 | Open shell (UHF/UKS) | **not implemented** |
 | Fortran / TURBOMOLE port | not started |
 
-Validated against brute-force finite differences: 16/16 cases pass
-(symmetric + asymmetric geometries × STO-3G/6-31G × PBE/r2SCAN × D4 on/off).
+Validated against brute-force finite differences: 32/32 cases pass — water
+monomer (symmetric and asymmetric) and water dimer (S22 hydrogen-bonded
+geometry and a symmetry-broken variant) × STO-3G/6-31G × PBE/r2SCAN × D4
+on/off. The dimer is what actually exercises D4: its dispersion energy is ~6x
+the monomer's, from genuine intermolecular interaction.
 
 Richardson-extrapolating the finite-difference reference to remove its own
 `O(h²)` truncation error shows the analytic gradient is exact to **7e-11** —
@@ -104,7 +107,7 @@ Useful keywords:
 
 ```bash
 cd tests
-python validate.py                    # 16-case finite-difference suite
+python validate.py                    # 32-case finite-difference suite
 python compare_response.py 5 6-31g    # z-vector vs per-atom CPHF, + scaling
 ```
 

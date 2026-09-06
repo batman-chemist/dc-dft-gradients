@@ -21,9 +21,10 @@ dispersion.
 
 **Result: the gradient is exact.** Against a Richardson-extrapolated
 finite-difference reference the analytic gradient agrees to **4×10⁻¹¹**, i.e.
-limited by SCF convergence rather than by the formula. Sixteen validation
-cases pass — symmetric and asymmetric geometries, two basis sets, a GGA and a
-meta-GGA, with and without dispersion.
+limited by SCF convergence rather than by the formula. Thirty-two validation
+cases pass — water monomer and hydrogen-bonded dimer, symmetric and
+symmetry-broken, two basis sets, a GGA and a meta-GGA, with and without
+dispersion.
 
 **Why it is not trivial.** The density minimises `E_HF` while the energy being
 differentiated is `E_KS`. The variational-stationarity argument that lets stock
@@ -292,9 +293,11 @@ Two methodological points earned the hard way:
   found by finite-differencing an individual term; a total can look plausible
   while two errors partially cancel.
 
-### 6.2 The suite: 16/16 pass
+### 6.2 The suite: 32/32 pass
 
-Symmetric and asymmetric water × STO-3G and 6-31G × PBE and r2SCAN × D4 on/off:
+Water monomer (C2v experimental, and a symmetry-broken variant) and water
+dimer (S22 hydrogen-bonded geometry, O-O 2.910 A, and a symmetry-broken
+variant) × STO-3G and 6-31G × PBE and r2SCAN × D4 on/off. Monomer results:
 
 ```
 water (C2v)/sto-3g/pbe          3.649e-06     water (asym)/sto-3g/pbe      9.965e-06
@@ -518,6 +521,6 @@ git clone git@github.com:batman-chemist/dc-dft-gradients.git
 cd dc-dft-gradients
 python -m venv venv && source venv/bin/activate
 python -m pip install -r requirements.txt
-cd tests && python validate.py            # 16-case suite, ~2 min
+cd tests && python validate.py            # 32-case suite, ~4 min
 python compare_response.py 5 6-31g        # z-vector vs per-atom + scaling
 ```

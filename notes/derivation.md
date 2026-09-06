@@ -78,7 +78,7 @@ central-difference derivative of the *actual* `E_total(R)`, re-converging HF
 independently and re-evaluating the whole PBE functional plus D4 at every
 displaced geometry — no intermediates shared with the analytic code path.
 
-Currently passing to ~1e-5 across 16 cases: symmetric and fully asymmetric
+Currently passing to ~1e-5 across 32 cases: water monomer (symmetric and
 water geometries × STO-3G and 6-31G × PBE (GGA) and r2SCAN (meta-GGA) ×
 with and without D4.
 
@@ -122,7 +122,7 @@ textbook field-independent CPHF formula.
 ## Status
 
 Validated: direct term + CPHF response term + D4 gradient, against
-finite differences, to ~1e-5 over the 16 cases listed above, for both a GGA
+finite differences, to ~1e-5 over the 32 cases listed above, for both a GGA
 and a meta-GGA.
 
 **Open items before this is production-ready:**

@@ -396,9 +396,11 @@ whole PBE functional plus D4 on that geometry's own density. It shares no
 intermediates with the analytic path — no reused Fock matrices, no reused
 integrals, no reused grids.
 
-Current status: **16/16 passing to ~1e-5** — symmetric and fully asymmetric
-water geometries, STO-3G and 6-31G, PBE (GGA) and r2SCAN (meta-GGA), D4 on
-and off. Central differences are
+Current status: **32/32 passing to ~1e-5** — water monomer (symmetric and
+symmetry-broken) and water dimer (S22 hydrogen-bonded geometry and a
+symmetry-broken variant), STO-3G and 6-31G, PBE (GGA) and r2SCAN (meta-GGA),
+D4 on and off. The dimer is what genuinely exercises D4: its dispersion energy
+is ~6x the monomer's. Central differences are
 `O(h^2)`-accurate so ~1e-5 agreement at `h = 5e-3` is consistent with an
 exact analytic gradient.
 

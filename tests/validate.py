@@ -18,6 +18,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 import nonscf_grad as ng  # noqa: E402
 
 MOLECULES = {
+    # Monomers. The C2v one is the experimental geometry; the asymmetric one
+    # exists because symmetry zeroes whole gradient components and can hide a
+    # wrong term.
     "water (C2v)": """
         O  0.0000  0.0000  0.1173
         H  0.0000  0.7572 -0.4692
@@ -27,6 +30,28 @@ MOLECULES = {
         O   0.000000  0.000000  0.000000
         H   0.960000  0.100000  0.050000
         H  -0.300000  0.870000 -0.200000
+    """,
+    # Hydrogen-bonded dimer (S22 geometry, Cs symmetric): O-O 2.910 A,
+    # O-H...O 172.8 deg. Unlike the monomers this genuinely exercises D4 --
+    # its dispersion energy is ~6x larger, from real intermolecular
+    # interaction rather than intramolecular noise.
+    "water dimer (S22, Cs)": """
+        O  -1.551007  -0.114520   0.000000
+        H  -1.934259   0.762503   0.000000
+        H  -0.599677   0.040712   0.000000
+        O   1.350625   0.111469   0.000000
+        H   1.680398  -0.373741  -0.758561
+        H   1.680398  -0.373741   0.758561
+    """,
+    # Same dimer with the mirror plane broken, so no component is zero by
+    # symmetry and every one of the 18 gradient components is a real test.
+    "water dimer (distorted)": """
+        O  -1.551007  -0.114520   0.000000
+        H  -1.934259   0.762503   0.041000
+        H  -0.599677   0.040712  -0.023000
+        O   1.350625   0.111469   0.087000
+        H   1.680398  -0.373741  -0.758561
+        H   1.744398  -0.310741   0.802561
     """,
 }
 
