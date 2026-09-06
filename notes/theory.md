@@ -172,7 +172,7 @@ This is the **full Kohn-Sham Fock matrix built from the HF density** — not
 just `V_xc`.
 
 This is worth dwelling on, because it is where the corrected functional
-differs most from the version I first implemented. Had the energy been
+differs most from a superficially similar alternative. Had the energy been
 `E_HF + E_xc^PBE[D_HF]`, then HF's own stationarity would have annihilated
 the `h + J - K/2` part of the response, leaving only `Tr[V_xc dD/dR]`. With
 `E_PBE[D_HF]` there is no `E_HF` term to be stationary, so *every* part of
@@ -264,7 +264,7 @@ It is tempting to argue: *"the occupied-occupied block only rotates occupied
 orbitals among themselves, and `D` is invariant under unitary rotations
 within the occupied space, so it cannot affect `dD/dR`."*
 
-**This is false, and I made exactly this error earlier in this project.**
+**This is false, and it is an easy trap to fall into.**
 
 `D` is invariant under *unitary* rotations, whose generator is
 **antisymmetric**. But the occupied-occupied block here is `U_ij = -½S^(A)_ij`,
@@ -416,16 +416,16 @@ Two methodological notes:
 
 Both were caught by finite differences, neither by inspection.
 
-**Bug 1 — the direct XC term is two pieces, and I used one.** I initially took
-only the grid-weight-response piece and omitted the shell-sliced
+**Bug 1 — the direct XC term is two pieces, and only one was included.**
+An early version took only the grid-weight-response piece, omitting the shell-sliced
 `2*Tr[V_xc,A . D]` basis-derivative contraction. The failure mode was nasty:
 the two pieces *largely cancel*, so the result was ~1e-7 — indistinguishable
 from a legitimate near-zero term — while the true value was ~0.32. It looked
 like a converged-to-zero physical result rather than a missing term. Finite
 differences exposed it instantly.
 
-**Bug 2 — nuclear CPHF is not field-independent CPHF.** I built the CPHF
-right-hand side as `B_ai = F_ai^(A) - eps_i S_ai^(A)`, which is the correct
+**Bug 2 — nuclear CPHF is not field-independent CPHF.** The CPHF
+right-hand side was first built as `B_ai = F_ai^(A) - eps_i S_ai^(A)`, which is the correct
 form for field-type perturbations. For nuclear displacements it omits the
 feedback of the constrained occupied-occupied block (§5.5) through the
 two-electron terms. The response term came out wrong by ~100%, with the sign
