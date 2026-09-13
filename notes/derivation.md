@@ -67,8 +67,7 @@ the same ones a code solves for analytic Hessians.
 
 **3. D4 term** — standard D4 analytic gradient, a function of geometry (and
 EEQ charges derived from geometry, not from the wavefunction, in the standard
-D4 model). Already solved by the `dftd4` library / TURBOMOLE's `disp` module.
-Just add it on.
+D4 model). Already solved by the `dftd4` library. Just add it on.
 
 ## Validation
 
@@ -92,8 +91,8 @@ which the numerical-integration layer supplies per functional type
 ## Two implementation pitfalls, worth knowing before touching the Fortran
 
 **The direct XC term is two pieces, not one.** A GGA gradient quadrature
-routine (`get_vxc_full_response` in PySCF, TURBOMOLE's equivalent GGA
-gradient loop) yields a grid-weight-response piece and a
+routine (`get_vxc_full_response` in PySCF; the equivalent GGA gradient loop in
+any code) yields a grid-weight-response piece and a
 basis-function-derivative piece. Using only the grid-weight piece and
 forgetting the shell-sliced `2·Tr[V_xc,A · D]` contraction (the standard
 "nabla-on-bra, ×2 for the ket partner" convention) silently produces a
@@ -114,10 +113,10 @@ The current code sidesteps re-deriving this by reusing PySCF's own validated
 nuclear-coordinate CPHF solver (`pyscf.hessian.rhf.solve_mo1`, the machinery
 its analytic Hessians depend on) to get `dD_HF/dR_A` directly.
 
-**Lesson for the port:** TURBOMOLE's own CPHF/CPKS infrastructure (analytic
-Hessians, MP2 gradients) already has the correct nuclear-perturbation
-right-hand side. Reuse *that* construction rather than re-deriving from the
-textbook field-independent CPHF formula.
+**Lesson for any port:** a mature code's existing CPHF/CPKS infrastructure
+(analytic Hessians, MP2 gradients) already has the correct
+nuclear-perturbation right-hand side. Reuse *that* construction rather than
+re-deriving from the textbook field-independent CPHF formula.
 
 ## Status
 
@@ -147,16 +146,16 @@ and a meta-GGA.
   been tested — enough to validate the formula, not to judge numerical
   behavior at production quality.
 
-## Port to TURBOMOLE Fortran
+## Porting to a production code
 
-- **Direct term** → adapt the existing `dscf`/`grad` KS gradient quadrature,
-  called on the frozen HF density instead of a self-consistent KS density,
-  with the overlap/energy-weighted-density term omitted.
-- **Response term** → reuse TURBOMOLE's CPHF infrastructure
-  (`escf`/`egrad`/`mpgrad`), specifically its nuclear-perturbation
-  right-hand-side construction, with the KS Fock matrix `F_KS` built from
-  the HF density as the Z-vector Lagrangian (in place of an MP2 Lagrangian).
-- **D4** → link the existing `disp`/`dftd4` interface, unchanged.
+- **Direct term** → adapt the existing KS gradient quadrature, called on the
+  frozen HF density instead of a self-consistent KS density, with the
+  overlap/energy-weighted-density term omitted.
+- **Response term** → reuse the existing CPHF infrastructure (whatever drives
+  analytic Hessians or MP2 gradients), specifically its nuclear-perturbation
+  right-hand-side construction, with the KS Fock matrix `F_KS` built from the
+  HF density as the Z-vector Lagrangian (in place of an MP2 Lagrangian).
+- **D4** → link the existing dispersion interface, unchanged.
 
-Needs the actual TURBOMOLE source tree (Fortran module layout, CPHF call
-signatures) — on hold until access.
+The response term is the only piece that is genuinely new work; the rest is
+existing machinery called on a different density.

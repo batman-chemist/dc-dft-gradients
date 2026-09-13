@@ -329,8 +329,8 @@ and the gradient becomes a purely "direct" derivative of `L`. The Z-vector
 equation is exactly the condition that makes this happen. In effect, we
 *manufacture* the variational property that the original expression lacked.
 
-This is the standard route for MP2/CC/CI gradients, and it is what the
-TURBOMOLE port should implement. It is on the TODO list — mathematically
+This is the standard route for MP2/CC/CI gradients, and it is what a
+production implementation should use. It is on the TODO list — mathematically
 equivalent to what is implemented, just `3N` times cheaper.
 
 ---
@@ -342,8 +342,7 @@ dispersion energy is a function of geometry alone — pairwise `C6/R^6`-type
 terms with coordination-number-dependent coefficients and EEQ charges derived
 from geometry, *not* from the wavefunction. So it carries no density
 response, contributes no CPHF, and its analytic gradient is already
-implemented in the `dftd4` library (and in TURBOMOLE's `disp` module). We
-call it and add the result.
+implemented in the `dftd4` library. We call it and add the result.
 
 One thing that does need care: **damping parameters must match the
 functional.** The code derives them from the XC choice (`d4_method_for_xc`)
@@ -437,8 +436,8 @@ re-converged HF density response* pinned it down.
 
 The fix in both cases was the same: stop re-deriving machinery that a mature
 code already has correct, and call PySCF's own validated routines. **The same
-advice applies to the TURBOMOLE port** — its CPHF/CPKS infrastructure
-(analytic Hessians, MP2 gradients) already contains the correct
+advice applies to any production port** — a mature code's CPHF/CPKS
+infrastructure (analytic Hessians, MP2 gradients) already contains the correct
 nuclear-perturbation right-hand side. Reuse that construction; do not rebuild
 it from the textbook field-independent formula.
 

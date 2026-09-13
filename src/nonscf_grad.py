@@ -228,7 +228,8 @@ def hf_density_response(mf):
     NOTE: solves CPHF once per atom (3*natm total; cheap for small systems).
     The Handy-Schaefer Z-vector trick collapses this to a single solve
     independent of natm via the interchange theorem; that optimization is
-    mathematically equivalent and is what the TURBOMOLE port should use, but
+    mathematically equivalent and is what a production implementation should use,
+    but
     is not needed to validate the formula.
     """
     from pyscf.hessian import rhf as rhf_hess

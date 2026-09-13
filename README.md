@@ -12,15 +12,9 @@ Hartree-Fock density**, plus D4 dispersion. The density is never relaxed under
 the KS potential — it is HF's own. This is HF-DFT, also called
 density-corrected DFT (DC-DFT).
 
-Built with PySCF as a validated stepping stone toward a Fortran implementation
-in TURBOMOLE.
-
-> **Scope.** This repository contains the PySCF reference implementation only.
-> The TURBOMOLE port is developed separately and is not published here —
-> TURBOMOLE is licensed software, and neither its source nor material derived
-> from it belongs in a public repository. What is published here is the physics
-> (the derivation, CPHF structure and Z-vector reduction are textbook and
-> literature) and an independent implementation of it.
+Built with PySCF. Correctness is established against finite differences rather
+than assumed, so this can serve as a reference baseline for other
+implementations of the same method.
 
 ## Why this is not a stock gradient
 
@@ -59,7 +53,6 @@ this code      : 9.0e-06  error   (finite-difference floor, see below)
 | D4 dispersion + gradient | done, damping parameters tied to the functional |
 | Z-vector (one CPHF solve, not 3N) | done |
 | Open shell (UHF/UKS) | **not implemented** |
-| Fortran / TURBOMOLE port | not started |
 
 See [LIMITATIONS.md](LIMITATIONS.md) for a full account of what is untested,
 unimplemented, or known-suboptimal — including the fact that the term-isolation

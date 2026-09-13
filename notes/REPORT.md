@@ -32,8 +32,7 @@ gradient code skip the orbital response does not apply, and the surviving
 response term turns out to be *larger than* the direct term. A gradient without
 it is not approximate — it is not the derivative of any function.
 
-Implemented in Python/PySCF as a validated reference for a subsequent Fortran
-implementation in TURBOMOLE.
+Implemented in Python/PySCF as a validated reference implementation.
 
 ---
 
@@ -472,11 +471,11 @@ finite-difference validation to 4×10⁻¹¹.
 - **Realistic systems** — water in small bases validates the *formula*, and
   says nothing about production basis-set quality or the dispersion-bound
   systems D4 exists for.
-- **TURBOMOLE Fortran port.**
+- **A production (compiled-language) implementation.**
 
 ---
 
-## 10. Path to TURBOMOLE
+## 10. Notes for a production implementation
 
 | Piece | Route |
 |---|---|
