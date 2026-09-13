@@ -54,6 +54,10 @@ this code      : 9.0e-06  error   (finite-difference floor, see below)
 | Open shell (UHF/UKS) | **not implemented** |
 | Fortran / TURBOMOLE port | not started |
 
+See [LIMITATIONS.md](LIMITATIONS.md) for a full account of what is untested,
+unimplemented, or known-suboptimal — including the fact that the term-isolation
+tests which caught both development bugs are not yet in the repository.
+
 Validated against brute-force finite differences: 32/32 cases pass — water
 monomer (symmetric and asymmetric) and water dimer (S22 hydrogen-bonded
 geometry and a symmetry-broken variant) × STO-3G/6-31G × PBE/r2SCAN × D4
@@ -140,6 +144,7 @@ src/nonscf_grad.py        implementation
 tests/validate.py         finite-difference validation (the ground truth)
 tests/compare_response.py z-vector vs per-atom cross-check and benchmark
 scripts/*.slurm           cluster submit scripts
+LIMITATIONS.md            what is untested, unimplemented, suboptimal
 notes/REPORT.md           full technical record: derivation, results, bugs
 notes/theory.md           the derivation, from first principles
 notes/derivation.md       implementation notes and pitfalls
