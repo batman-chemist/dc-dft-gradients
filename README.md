@@ -15,6 +15,13 @@ density-corrected DFT (DC-DFT).
 Built with PySCF as a validated stepping stone toward a Fortran implementation
 in TURBOMOLE.
 
+> **Scope.** This repository contains the PySCF reference implementation only.
+> The TURBOMOLE port is developed separately and is not published here —
+> TURBOMOLE is licensed software, and neither its source nor material derived
+> from it belongs in a public repository. What is published here is the physics
+> (the derivation, CPHF structure and Z-vector reduction are textbook and
+> literature) and an independent implementation of it.
+
 ## Why this is not a stock gradient
 
 Every standard analytic gradient (HF, self-consistent KS-DFT) relies on the
@@ -115,7 +122,7 @@ python validate.py                    # 32-case finite-difference suite
 python compare_response.py 5 6-31g    # z-vector vs per-atom CPHF, + scaling
 ```
 
-### On a cluster
+### On an HPC system
 
 SLURM submit scripts are in `scripts/`. Put your site's environment setup in an
 untracked `scripts/env.sh`, then submit with your own partition:
@@ -143,7 +150,7 @@ few-thread tasks scales far better than one wide job.
 src/nonscf_grad.py        implementation
 tests/validate.py         finite-difference validation (the ground truth)
 tests/compare_response.py z-vector vs per-atom cross-check and benchmark
-scripts/*.slurm           cluster submit scripts
+scripts/*.slurm           SLURM submit scripts for HPC systems
 LIMITATIONS.md            what is untested, unimplemented, suboptimal
 notes/REPORT.md           full technical record: derivation, results, bugs
 notes/theory.md           the derivation, from first principles

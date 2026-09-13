@@ -211,3 +211,28 @@ for the mapping of each term onto existing infrastructure, and the two traps
 The single most transferable warning: **do not assume a stock DFT gradient
 routine fed a foreign density gives a valid answer.** It runs, it returns
 plausible numbers, and it is wrong by more than the gradient itself.
+
+### Scope boundary — the port does not belong in this repository
+
+TURBOMOLE is licensed software. Its source, and material derived from reading
+it, must not be published here. The port is developed separately.
+
+The distinction is not only about code. Prose describing how its internals
+work is derived material too:
+
+| Publishable here | Stays out |
+|---|---|
+| The physics — derivation, CPHF structure, Z-vector; all textbook and literature | Source, in any quantity |
+| This PySCF implementation | Subroutine signatures, common blocks, data structures read from the source |
+| Program and module names from the published user manual | Source tree layout and file paths |
+| Generic remarks such as "reuse the existing CPHF infrastructure" | Patches or diffs against it |
+| | Notes describing how its internals actually behave |
+| | Reference data shipped with the distribution |
+
+The rows on the right stay private even when written from scratch: a
+description of proprietary internals is derived from them regardless of who
+typed it. The safe default, once working in that tree, is to treat everything
+learned there as confidential unless it appears in the public manual.
+
+The current contents of this repository were checked against this boundary and
+contain nothing on the right-hand side.

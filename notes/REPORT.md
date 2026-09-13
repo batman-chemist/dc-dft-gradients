@@ -468,7 +468,7 @@ finite-difference validation to 4×10⁻¹¹.
 - **Open shell (UHF/UKS)** — spin-resolved analogues needed throughout.
 - **Scaling crossover** — where the Z-vector actually starts to pay is
   unmeasured beyond 15 atoms; `tests/compare_response.py` exists to settle it
-  on cluster hardware.
+  on HPC hardware.
 - **Realistic systems** — water in small bases validates the *formula*, and
   says nothing about production basis-set quality or the dispersion-bound
   systems D4 exists for.
